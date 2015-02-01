@@ -1,15 +1,13 @@
 # Khmd_Reader
+
 The KHMD Community's Blog Reading App
 	
-	Work in Progress
+#### Work in Progress
 	
-										Check Issues tab for problems
+Check Issues tab for problems
 										
-										Check Project Wiki for Roadmap
+Check Project Wiki for Roadmap
 										
 										
-										
-										##################################					
-										Branches named according to issues
-										
-										##################################
+Branches named according to issues
+																		
