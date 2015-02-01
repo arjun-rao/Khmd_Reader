@@ -6,4 +6,10 @@ The KHMD Community's Blog Reading App
 										Check Issues tab for problems
 										
 										Check Project Wiki for Roadmap
-					Branches named according to issues
+										
+										
+										
+										##################################					
+										Branches named according to issues
+										
+										##################################
