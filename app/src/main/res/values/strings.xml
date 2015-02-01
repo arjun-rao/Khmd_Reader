@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Khmd Reader0.x</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="refresh">Refresh</string>
+    <string name="titles">Articles</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+    <string name="on">We\'re done here</string>
+
+    <string-array name="navTitles">
+        <item>Followed Blogs</item>
+        <item>Sign up for Updates</item>
+        <item>Feedback</item>
+        <item>Preferences</item>
+        <item>About KHMD</item>
+    </string-array>
+
+    <string name="title_activity_onboard">onboard</string>
+
+</resources>

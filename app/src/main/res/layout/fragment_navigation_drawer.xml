@@ -1,0 +1,34 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/navDrawer"
+    tools:context="com.skch.khmd.khmdreader0x.NavigationDrawerFragment">
+
+
+    <LinearLayout
+        android:id="@+id/container_drawer_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/navDrawer">
+
+        <ImageView
+            android:layout_width="@dimen/nav_drawer_width"
+            android:layout_height="160dp"
+            android:src="@drawable/khmd_logo" />
+
+
+    </LinearLayout>
+
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/NavList"
+        android:layout_below="@+id/container_drawer_image"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>
+
