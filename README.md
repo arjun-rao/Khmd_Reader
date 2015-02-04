@@ -6,7 +6,7 @@ The KHMD Community's Blog Reading App
 	
 Check Issues tab for problems + To do
 										
-Check Project Wiki for Roadmap
+### Check Project Wiki for Roadmap + features
 										
 										
 Branches named according to issues
