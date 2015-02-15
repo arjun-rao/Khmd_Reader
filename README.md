@@ -2,9 +2,8 @@
 
 The KHMD Community's Blog Reading App
 	
-#### Work in Progress
+# Work in Progress
 
-Successfully added core functionality to app.
 ## Currently working features:
 	-Activity to view all articles. Articles fetched from new yahoo pipe.
 	-Activity to view individual article selected from listview activity. 
