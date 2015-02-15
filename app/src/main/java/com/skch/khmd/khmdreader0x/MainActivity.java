@@ -1,12 +1,14 @@
 package com.skch.khmd.khmdreader0x;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -40,7 +42,11 @@ public class MainActivity extends ActionBarActivity {
 
      }
 
-
+    /** Called when the user clicks the Articles button */
+    public void showArticles(View view) {
+        Intent intent = new Intent(this, ArticlesList.class);
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

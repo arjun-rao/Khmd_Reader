@@ -21,5 +21,8 @@
     </string-array>
 
     <string name="title_activity_onboard">onboard</string>
+    <string name="title_activity_articles_list">All Articles</string>
+    <string name="title_feed"></string>
+    <string name="title_activity_webview">Webview</string>
 
 </resources>

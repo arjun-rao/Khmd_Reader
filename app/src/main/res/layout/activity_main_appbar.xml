@@ -30,6 +30,14 @@
                 android:textStyle="bold|italic"
                 android:layout_gravity="center_horizontal|top" />
 
+            <Button
+                android:layout_width="162dp"
+                android:layout_height="74dp"
+                android:text="Articles"
+                android:id="@+id/btn_blog_list"
+                android:onClick="showArticles"
+                android:layout_gravity="center" />
+
         </FrameLayout>
 
         <fragment
