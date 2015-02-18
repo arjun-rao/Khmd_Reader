@@ -20,6 +20,14 @@ import com.skch.khmd.khmdreader0x.model.FeedItem;
 
 
 public class FeedDetails extends ActionBarActivity {
+                
+    /*
+    Started from ArticleList.java 
+                        -> (AsyncTask) DownLoadFilesTask().execute(url)
+                        -> onPostExecute();
+                        -> parseJson(json);
+                        -> updateList(); 
+    */
 
     private Toolbar toolbar;
     private FeedItem feed;
@@ -28,10 +36,12 @@ public class FeedDetails extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_feed_details);
         feed = (FeedItem) this.getIntent().getSerializableExtra("feed");
+        // Gets intent from ArticleList.java -> updateList();
 
         if (null != feed) {
             ImageView thumb = (ImageView) findViewById(R.id.featuredImg);
             new ImageDownloaderTask(thumb).execute(feed.getAttachmentUrl());
+            // AsyncTask to download image AFTER it opens FeedDetails and set in top bar
 
             TextView title = (TextView) findViewById(R.id.title);
             title.setText(feed.getTitle());
