@@ -46,7 +46,8 @@ public class ArticlesList extends ActionBarActivity {
         setContentView(R.layout.activity_articles_list);
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
         String url = "http://pipes.yahoo.com/pipes/pipe.run?_id=b7836ddf37201097635727c10845d841&_render=JSON";
-        new DownloadFilesTask().execute(url);
+        new DownloadFilesTask().execute(url);  // Check Below for DownloadFilesTask() Class
+
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -68,11 +69,16 @@ public class ArticlesList extends ActionBarActivity {
         feedListView.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> a, View v, int position,	long id) {
-                Object o = feedListView.getItemAtPosition(position);
-                FeedItem newsData = (FeedItem) o;
-
-                Intent intent = new Intent(ArticlesList.this, FeedDetails.class);
+            public void onItemClick(AdapterView<?> a, View v, int position,	long id){
+                Object o = feedListView.getItemAtPosition(position);  //1
+                FeedItem newsData = (FeedItem) o;                     //2    
+                /* 
+                Replace 1,2 with
+                    FeedItem newData = feedListView.getItemAtPosition(position);  ??
+                */
+                
+                Intent intent = new Intent(ArticlesList.this, FeedDetails.class);  
+                            // replace with Intent(this, FeedDetails.class)  ??
                 intent.putExtra("feed", newsData);
                 startActivity(intent);
             }
@@ -89,6 +95,7 @@ public class ArticlesList extends ActionBarActivity {
         protected void onPostExecute(Void result) {
             if (null != feedList) {
                 updateList();
+                //Displays ListView once the feedList ArrayList is populated from json object 
             }
         }
 
@@ -123,12 +130,14 @@ public class ArticlesList extends ActionBarActivity {
             BufferedReader reader = new BufferedReader(new InputStreamReader(
                     is, "iso-8859-1"), 8);
             StringBuilder sb = new StringBuilder();
+            // Creates mutable string that is appended with text till end of response 
             int cp;
             while ((cp = reader.read()) != -1) {
                 sb.append((char) cp);
             }
             is.close();
             json = sb.toString();
+            // Converts the mutable string into json object 
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         } catch (ClientProtocolException e) {
@@ -143,7 +152,7 @@ public class ArticlesList extends ActionBarActivity {
             Log.e("JSON Parser", "Error parsing data " + e.toString());
         }
 
-        // return JSON String
+        // return JSON String to JSONObject "json"
         return jObj;
 
     }
@@ -162,7 +171,8 @@ public class ArticlesList extends ActionBarActivity {
                 //Log.d("Article Count",Integer.toString(posts.length()));
                 for (int i = 0; i < posts.length(); i++) {
                     JSONObject post = (JSONObject) posts.getJSONObject(i);
-                    FeedItem item = new FeedItem();
+                    FeedItem item = new FeedItem(); 
+                    // FeedItem Class defined in Model folder
                     JSONObject author = post.getJSONObject("author");
                     JSONObject content = post.getJSONObject("content");
                     item.setTitle(post.getString("title"));
@@ -179,6 +189,9 @@ public class ArticlesList extends ActionBarActivity {
                         item.setAttachmentUrl("http://lh3.googleusercontent.com/-L-SGKiNt3ZQ/VJBN4QRpmYI/AAAAAAAAMm8/1CgVgSu9vL4/s72-c/blogger-image--823560845.jpg");
                     }
 
+                /*
+                Check whether post has a valid thumbnail, if not set khmd logo.
+                */
 
 
                     feedList.add(item);
