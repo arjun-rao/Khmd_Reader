@@ -26,6 +26,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+/*
+Synopsis
+            Volley Singleton class set up to provide 2 objects - requestqueue and image loader
+            Request Queue in getJsonFromUrl() downloads Json directly, thus no need to convert string to json  
+            parseJson() unchanged
+            ImageDownloderTask shifted to CustomListAdapter
+            updateList() unchanged
+*/
 
 public class ArticlesList extends ActionBarActivity {
 
@@ -65,11 +73,11 @@ public class ArticlesList extends ActionBarActivity {
 
         RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
 
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, url, new Response.Listener<JSONObject>() {
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, jObj, new Response.Listener<JSONObject>() {
 
             @Override
             public void onResponse(JSONObject response) {
-                jObj = response;
+                //jObj = response;      // implemented in Constructor
                 Log.i("onResponse", "got JSON");
             }
         }, new Response.ErrorListener() {
