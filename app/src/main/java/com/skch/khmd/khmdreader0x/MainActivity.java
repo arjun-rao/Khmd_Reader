@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 
+
 public class MainActivity extends ActionBarActivity {
 
     private Toolbar toolbar;
@@ -33,6 +34,7 @@ public class MainActivity extends ActionBarActivity {
 
             drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
+
         // navList = (ListView) findViewById(R.id.NavList);
         //Resources res = getResources();
 
@@ -41,7 +43,6 @@ public class MainActivity extends ActionBarActivity {
         //navList.setOnItemClickListener(new DrawerItemClickListener());
 
      }
-
     /** Called when the user clicks the Articles button */
     public void showArticles(View view) {
         Intent intent = new Intent(this, ArticlesList.class);
@@ -61,10 +62,7 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return id == R.id.action_settings || super.onOptionsItemSelected(item);
     }
 
 
