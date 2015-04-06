@@ -18,6 +18,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.skch.khmd.khmdreader0x.model.FeedItem;
 
 import org.json.JSONArray;
@@ -29,7 +30,7 @@ import java.util.ArrayList;
 /*
 Synopsis
             Volley Singleton class set up to provide 2 objects - requestqueue and image loader
-            Request Queue in getJsonFromUrl() downloads Json directly, thus no need to convert string to json  
+            Request Queue in getJson() downloads Json directly, thus no need to convert string to json
             parseJson() unchanged
             ImageDownloderTask shifted to CustomListAdapter
             updateList() unchanged
@@ -37,7 +38,6 @@ Synopsis
 
 public class ArticlesList extends ActionBarActivity {
 
-    JSONObject jObj = null;
     private Toolbar toolbar;
     private ArrayList<FeedItem> feedList = null;
     private ProgressBar progressbar = null;
@@ -49,14 +49,8 @@ public class ArticlesList extends ActionBarActivity {
         setContentView(R.layout.activity_articles_list);
         progressbar = (ProgressBar) findViewById(R.id.progressBar);
 
-        String url = "http://pipes.yahoo.com/pipes/pipe.run?_id=b7836ddf37201097635727c10845d841&_render=JSON";
-        Log.i("Articles List", "Successfully started");
-        getJSONFromUrl(url);
-        Log.i("Articles List", "got JSON");
-        parseJson(jObj);
-        Log.i("Articles List", "Parsed JSON");
-        updateList();
-        Log.i("Articles List", "Updates List + initialized feedlist");
+        getJson();
+        //moved parse function to getJson
 
         toolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
@@ -68,44 +62,51 @@ public class ArticlesList extends ActionBarActivity {
         drawerFragment.setUp(R.id.fragment_navigation_drawer, (DrawerLayout) findViewById(R.id.drawer_layout), toolbar);
 
     }
+    public void getJson(){
 
-    public JSONObject getJSONFromUrl(String url) {
+        String url = "http://pipes.yahoo.com/pipes/pipe.run?_id=b7836ddf37201097635727c10845d841&_render=JSON";
 
-        RequestQueue queue = VolleySingleton.getInstance().getRequestQueue();
-
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.POST, url, jObj, new Response.Listener<JSONObject>() {
-
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET,url, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                //jObj = response;      // implemented in Constructor
-                Log.i("onResponse", "got JSON");
+                //if valid json, parse it
+                parseJson(response);
+                //update the listview
+                updateList();
             }
         }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+
                 Log.i("onResponse", "error getting JSON");
             }
         });
+        RequestQueue queue = Volley.newRequestQueue(this); //Currently using an on demand queue, but can be integrated with Singleton
+
         queue.add(req);
-        return jObj;
     }
+
 
     public void parseJson(JSONObject json) {
         JSONObject items = null;
+        if(json == null) {
+           // Log.i("ParseJson","Json Null");
+            return;
+        }
         try {
-            Log.i("parse Json", "inside try");
+            //Log.i("parse Json", "inside try");
 
             // parsing json object
             if (json.getInt("count") > 0) {
                 items = json.getJSONObject("value");
                 JSONArray posts = items.getJSONArray("items");
-                Log.i("parse Json", "parsing items");
+                //Log.i("parse Json", "parsing items");
 
                 feedList = new ArrayList<FeedItem>();
-                Log.d("Article Count", Integer.toString(posts.length()));
+                //Log.d("Article Count", Integer.toString(posts.length()));
                 for (int i = 0; i < posts.length(); i++) {
-                    JSONObject post = (JSONObject) posts.getJSONObject(i);
+                    JSONObject post = posts.getJSONObject(i);
                     FeedItem item = new FeedItem();
                     JSONObject author = post.getJSONObject("author");
                     JSONObject content = post.getJSONObject("content");
@@ -115,7 +116,7 @@ public class ArticlesList extends ActionBarActivity {
                     item.setUrl(post.getString("link"));
                     item.setContent(content.getString("content"));
 
-                    Log.i("parse Json", "parsing each item");
+                   // Log.i("parse Json", "parsing each item");
 
                     if (post.has("media:thumbnail") && !post.isNull("media:thumbnail")) {
                         JSONObject thumb = post.getJSONObject("media:thumbnail");
