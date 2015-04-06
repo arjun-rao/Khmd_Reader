@@ -2,9 +2,9 @@
 
 The KHMD Community's Blog Reading App
 	
-# Work in Progress
+*_Work in Progress_*
 
-## Currently working features:
+#### Currently working features:
 1. Activity to view all articles. Articles fetched from new yahoo pipe.
 2. Activity to view individual article selected from listview activity. 
 3. Webview that displays selected article on the KHMD Blog.
